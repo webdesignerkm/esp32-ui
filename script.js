@@ -28,7 +28,7 @@ function loadSensor() {
 }
 
 // 2 másodpercenként frissítjük az értékeket
-setInterval(loadSensor, 2000);
+setInterval(loadSensor, 10);
 
 // Oldal betöltéskor azonnal frissít
 window.onload = loadSensor;
