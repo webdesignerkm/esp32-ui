@@ -1,10 +1,72 @@
+/* --- Body stílus --- */
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   text-align: center;
-  margin-top: 50px;
+  margin: 50px auto;
+  max-width: 600px;
+  background: linear-gradient(135deg, #f0f4ff, #d0e0ff);
+  color: #222;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 }
 
+/* --- Fejléc --- */
+h1 {
+  font-size: 2.5em;
+  color: #0070D0;
+  text-shadow: 1px 1px 4px rgba(0,0,0,0.2);
+  margin-bottom: 30px;
+}
+
+/* --- Gombok --- */
 button {
-  font-size: 24px;
-  padding: 20px 40px;
+  font-size: 1.5em;
+  padding: 15px 35px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #00c6ff, #0072ff);
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+button:hover {
+  background: linear-gradient(135deg, #0072ff, #00c6ff);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* --- DHT adatok stílusa --- */
+h2 {
+  color: #004080;
+  margin-top: 40px;
+  font-size: 2em;
+}
+
+p {
+  font-size: 1.3em;
+  margin: 15px 0;
+}
+
+/* --- Hőmérséklet / páratartalom kiemelés --- */
+#temp, #hum {
+  color: #FF4500;
+  font-weight: bold;
+  font-size: 1.5em;
+}
+
+/* --- Állapot BE/KI stílus --- */
+#gpioState {
+  color: #008000;  /* alap zöld */
+  font-weight: bold;
+}
+
+/* Ha toggle-hoz JS-sel BE/KI színt akarunk változtatni */
+.be {
+  color: #008000; /* zöld */
+}
+.ki {
+  color: #FF0000; /* piros */
 }
