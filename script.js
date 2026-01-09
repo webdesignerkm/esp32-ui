@@ -5,11 +5,12 @@ function toggleUI() {
     const timeBox = document.getElementById("timeBox");
     const labelTemp = document.getElementById("labelTemp");
 
+    // Ha Időzített (2), akkor látható, egyébként rejtett
     if (mode === "2") {
-        timeBox.classList.remove("hidden");
+        timeBox.style.display = "block";
         labelTemp.innerText = "Alap hőfok (időn kívül)";
     } else {
-        timeBox.classList.add("hidden");
+        timeBox.style.display = "none";
         labelTemp.innerText = "Kívánt hőfok (°C)";
     }
 }
@@ -29,8 +30,8 @@ function saveSettings() {
     }
 
     fetch(ESP32_URL + query)
-        .then(res => { if (res.ok) alert("Mentve!"); })
-        .catch(err => alert("Hiba: " + err));
+        .then(res => { if (res.ok) alert("Sikeresen mentve!"); })
+        .catch(err => alert("Hiba a mentéskor: " + err));
 }
 
 function loadData() {
