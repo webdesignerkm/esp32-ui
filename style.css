@@ -1,4 +1,4 @@
-/* --- Teljes Sötét Háttér Animációval --- */
+/* --- Teljes Sötét Háttér --- */
 body {
   font-family: 'Inter', 'Segoe UI', Roboto, sans-serif;
   text-align: center;
@@ -12,58 +12,110 @@ body {
 }
 
 /* --- Központi Kártya (Glassmorphism) --- */
-.container {
+.glass-container {
   background: rgba(30, 41, 59, 0.7);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 40px;
+  padding: 30px;
   border-radius: 24px;
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
   max-width: 450px;
   width: 90%;
+  margin: 20px 0;
 }
 
-h1 {
+/* --- Szövegek --- */
+h1.glow-text {
   font-size: 1.8rem;
   letter-spacing: -0.025em;
   background: linear-gradient(to right, #38bdf8, #818cf8);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  margin-bottom: 30px;
-}
-
-/* --- Adatcsoportok --- */
-.data-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 15px;
-  margin: 25px 0;
-}
-
-.data-box {
-  background: rgba(15, 23, 42, 0.5);
-  padding: 15px;
-  border-radius: 16px;
-  border: 1px solid rgba(56, 189, 248, 0.2);
+  margin-bottom: 25px;
 }
 
 .label {
   display: block;
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   color: #94a3b8;
   text-transform: uppercase;
+  font-weight: 600;
   margin-bottom: 5px;
 }
 
-.value {
-  font-size: 1.4rem;
+/* --- Kártyák és rács --- */
+.status-card {
+  background: rgba(15, 23, 42, 0.5);
+  padding: 15px;
+  border-radius: 16px;
+  border: 1px solid rgba(56, 189, 248, 0.1);
+  margin-bottom: 15px;
+}
+
+.full { width: 100%; box-sizing: border-box; }
+
+.grid-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.value-row {
+  font-size: 1.6rem;
   font-weight: 700;
   color: #38bdf8;
 }
 
-/* --- Gomb (Neonos) --- */
-button {
+/* --- RTC Idő --- */
+.time-display {
+  font-family: 'Courier New', monospace;
+  font-size: 2rem;
+  color: #f8fafc;
+  text-shadow: 0 0 10px rgba(255,255,255,0.2);
+}
+
+/* --- Beviteli mezők (Input & Select) --- */
+.set-section {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  text-align: left;
+}
+
+.input-group { margin-bottom: 15px; }
+
+input, select {
+  background: #0f172a;
+  color: white;
+  border: 1px solid #334155;
+  padding: 12px;
+  border-radius: 10px;
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 1rem;
+  transition: border-color 0.2s;
+}
+
+input:focus, select:focus {
+  outline: none;
+  border-color: #38bdf8;
+}
+
+.time-flex {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.time-flex input {
+  text-align: center;
+  padding: 8px;
+}
+
+/* --- Gomb --- */
+.save-btn {
   width: 100%;
   padding: 16px;
   border: none;
@@ -74,27 +126,22 @@ button {
   font-size: 1rem;
   cursor: pointer;
   transition: all 0.2s ease;
-  box-shadow: 0 0 20px rgba(56, 189, 248, 0.4);
-}
-
-button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 0 30px rgba(56, 189, 248, 0.6);
-  background: #7dd3fc;
-}
-
-button:active { transform: translateY(0); }
-
-/* --- RTC Idő kiemelése --- */
-#time {
-  font-family: 'Courier New', monospace;
-  font-size: 2.2rem;
-  color: #f8fafc;
-  display: block;
+  box-shadow: 0 0 20px rgba(56, 189, 248, 0.3);
   margin-top: 10px;
-  text-shadow: 0 0 10px rgba(255,255,255,0.3);
+}
+
+.save-btn:hover {
+  transform: translateY(-2px);
+  background: #7dd3fc;
+  box-shadow: 0 0 30px rgba(56, 189, 248, 0.5);
+}
+
+/* --- Dinamikus elrejtés --- */
+.hidden {
+  display: none !important;
 }
 
 /* --- Állapot színek --- */
-#gpioState.BE { color: #4ade80; text-shadow: 0 0 10px rgba(74, 222, 128, 0.5); }
-#gpioState.KI { color: #fb7185; }
+.state-text { font-weight: 800; font-size: 1.2rem; }
+.state-text.BE { color: #4ade80; text-shadow: 0 0 15px rgba(74, 222, 128, 0.4); }
+.state-text.KI { color: #fb7185; text-shadow: 0 0 15px rgba(251, 113, 133, 0.3); }
