@@ -15,8 +15,8 @@ function loadSensor() {
     .then(res => res.json())
     .then(data => {
       // Szenzor adatok frissítése
-      document.getElementById("temp").innerText = data.temperature + " °C";
-      document.getElementById("hum").innerText = data.humidity + " %";
+      document.getElementById("temp").innerText = data.temperature; 
+      document.getElementById("hum").innerText = data.humidity;    
       document.getElementById("time").innerText = data.time;
 
       // --- EZ A HIÁNYZÓ RÉSZ: GPIO Állapot frissítése ---
