@@ -1,15 +1,16 @@
 const ESP32_URL = location.origin;
 
+// Ez a függvény rejti el vagy mutatja meg az időzített mezőket
 function toggleUI() {
     const mode = document.getElementById("mode").value;
     const timeBox = document.getElementById("timeBox");
     const labelTemp = document.getElementById("labelTemp");
 
     if (mode === "2") {
-        timeBox.classList.remove("hidden");
-        labelTemp.innerText = "Alap hőfok (időzítésen kívül)";
+        timeBox.classList.remove("hidden"); // Megjelenítés
+        labelTemp.innerText = "Alap hőfok (időn kívül)";
     } else {
-        timeBox.classList.add("hidden");
+        timeBox.classList.add("hidden");    // Elrejtés
         labelTemp.innerText = "Kívánt hőfok (°C)";
     }
 }
@@ -17,7 +18,6 @@ function toggleUI() {
 function saveSettings() {
     const temp = document.getElementById("targetInput").value;
     const mode = document.getElementById("mode").value;
-    
     let query = `/set?temp=${temp}&mode=${mode}`;
     
     if (mode === "2") {
@@ -30,8 +30,8 @@ function saveSettings() {
     }
 
     fetch(ESP32_URL + query)
-        .then(res => { if (res.ok) alert("Sikeres mentés!"); })
-        .catch(err => alert("Hiba: " + err));
+        .then(res => { if (res.ok) alert("Sikeresen mentve!"); })
+        .catch(err => alert("Hiba a mentéskor: " + err));
 }
 
 function loadData() {
@@ -42,26 +42,25 @@ function loadData() {
             document.getElementById("time").innerText = data.time;
             document.getElementById("targetDisp").innerText = data.target;
 
-            // Csak akkor írjuk felül az input mezőket, ha a felhasználó nem épp gépel bennük
             if (document.activeElement.tagName !== "INPUT" && document.activeElement.tagName !== "SELECT") {
                 document.getElementById("targetInput").value = data.baseTarget;
                 document.getElementById("mode").value = data.mode;
+                
                 if (data.mode == 2) {
                     document.getElementById("targetInputTimed").value = data.timedTarget;
+                    document.getElementById("sh").value = data.sh;
+                    document.getElementById("sm").value = data.sm;
+                    document.getElementById("eh").value = data.eh;
+                    document.getElementById("em").value = data.em;
                 }
                 toggleUI();
             }
 
             const stateText = document.getElementById("gpioState");
-            if (data.gpio === 1) {
-                stateText.innerText = "FŰTÉS AKTÍV";
-                stateText.className = "state-text BE";
-            } else {
-                stateText.innerText = "KIKAPCSOLVA";
-                stateText.className = "state-text KI";
-            }
+            stateText.innerText = (data.gpio === 1) ? "FŰTÉS AKTÍV" : "KIKAPCSOLVA";
+            stateText.className = "state-text " + (data.gpio === 1 ? "BE" : "KI");
         });
 }
 
-setInterval(loadData, 2000);
+setInterval(loadData, 1000);
 window.onload = loadData;
