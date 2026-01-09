@@ -1,6 +1,5 @@
 const ESP32_URL = location.origin;
 
-// Felület elemeinek elrejtése/megjelenítése az üzemmód alapján
 function toggleUI() {
     const mode = document.getElementById("mode").value;
     const timeBox = document.getElementById("timeBox");
@@ -11,7 +10,6 @@ function toggleUI() {
     }
 }
 
-// Beállítások mentése az ESP32-re
 function saveSettings() {
     const temp = document.getElementById("targetInput").value;
     const mode = document.getElementById("mode").value;
@@ -27,13 +25,10 @@ function saveSettings() {
     }
 
     fetch(ESP32_URL + query)
-        .then(res => {
-            if (res.ok) alert("Sikeresen elmentve!");
-        })
+        .then(res => { if (res.ok) alert("Beállítások elmentve!"); })
         .catch(err => alert("Hiba történt: " + err));
 }
 
-// Adatok folyamatos frissítése
 function loadData() {
     fetch(ESP32_URL + "/state")
         .then(res => res.json())
@@ -42,7 +37,6 @@ function loadData() {
             document.getElementById("time").innerText = data.time;
             document.getElementById("targetDisp").innerText = data.target;
 
-            // Csak akkor frissítjük az inputokat, ha a felhasználó nem épp szerkeszti
             if (document.activeElement.tagName !== "INPUT" && document.activeElement.tagName !== "SELECT") {
                 document.getElementById("targetInput").value = data.target;
                 document.getElementById("mode").value = data.mode;
