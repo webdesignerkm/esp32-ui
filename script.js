@@ -1,16 +1,15 @@
 const ESP32_URL = location.origin;
 
-// Ez a függvény rejti el vagy mutatja meg az időzített mezőket
 function toggleUI() {
     const mode = document.getElementById("mode").value;
     const timeBox = document.getElementById("timeBox");
     const labelTemp = document.getElementById("labelTemp");
 
     if (mode === "2") {
-        timeBox.classList.remove("hidden"); // Megjelenítés
+        timeBox.classList.remove("hidden");
         labelTemp.innerText = "Alap hőfok (időn kívül)";
     } else {
-        timeBox.classList.add("hidden");    // Elrejtés
+        timeBox.classList.add("hidden");
         labelTemp.innerText = "Kívánt hőfok (°C)";
     }
 }
@@ -30,8 +29,8 @@ function saveSettings() {
     }
 
     fetch(ESP32_URL + query)
-        .then(res => { if (res.ok) alert("Sikeresen mentve!"); })
-        .catch(err => alert("Hiba a mentéskor: " + err));
+        .then(res => { if (res.ok) alert("Mentve!"); })
+        .catch(err => alert("Hiba: " + err));
 }
 
 function loadData() {
