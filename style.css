@@ -1,72 +1,100 @@
-/* --- Body stílus --- */
+/* --- Teljes Sötét Háttér Animációval --- */
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Inter', 'Segoe UI', Roboto, sans-serif;
   text-align: center;
-  margin: 50px auto;
-  max-width: 600px;
-  background: linear-gradient(135deg, #f0f4ff, #d0e0ff);
-  color: #222;
-  padding: 20px;
-  border-radius: 15px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: radial-gradient(circle at top right, #1e293b, #0f172a, #020617);
+  color: #f8fafc;
 }
 
-/* --- Fejléc --- */
+/* --- Központi Kártya (Glassmorphism) --- */
+.container {
+  background: rgba(30, 41, 59, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 40px;
+  border-radius: 24px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  max-width: 450px;
+  width: 90%;
+}
+
 h1 {
-  font-size: 2.5em;
-  color: #0070D0;
-  text-shadow: 1px 1px 4px rgba(0,0,0,0.2);
+  font-size: 1.8rem;
+  letter-spacing: -0.025em;
+  background: linear-gradient(to right, #38bdf8, #818cf8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
   margin-bottom: 30px;
 }
 
-/* --- Gombok --- */
+/* --- Adatcsoportok --- */
+.data-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  margin: 25px 0;
+}
+
+.data-box {
+  background: rgba(15, 23, 42, 0.5);
+  padding: 15px;
+  border-radius: 16px;
+  border: 1px solid rgba(56, 189, 248, 0.2);
+}
+
+.label {
+  display: block;
+  font-size: 0.8rem;
+  color: #94a3b8;
+  text-transform: uppercase;
+  margin-bottom: 5px;
+}
+
+.value {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #38bdf8;
+}
+
+/* --- Gomb (Neonos) --- */
 button {
-  font-size: 1.5em;
-  padding: 15px 35px;
+  width: 100%;
+  padding: 16px;
   border: none;
   border-radius: 12px;
-  background: linear-gradient(135deg, #00c6ff, #0072ff);
-  color: white;
+  background: #38bdf8;
+  color: #0f172a;
+  font-weight: bold;
+  font-size: 1rem;
   cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease;
+  box-shadow: 0 0 20px rgba(56, 189, 248, 0.4);
 }
 
 button:hover {
-  background: linear-gradient(135deg, #0072ff, #00c6ff);
-  transform: translateY(-3px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 0 30px rgba(56, 189, 248, 0.6);
+  background: #7dd3fc;
 }
 
-/* --- DHT adatok stílusa --- */
-h2 {
-  color: #004080;
-  margin-top: 40px;
-  font-size: 2em;
+button:active { transform: translateY(0); }
+
+/* --- RTC Idő kiemelése --- */
+#time {
+  font-family: 'Courier New', monospace;
+  font-size: 2.2rem;
+  color: #f8fafc;
+  display: block;
+  margin-top: 10px;
+  text-shadow: 0 0 10px rgba(255,255,255,0.3);
 }
 
-p {
-  font-size: 1.3em;
-  margin: 15px 0;
-}
-
-/* --- Hőmérséklet / páratartalom kiemelés --- */
-#temp, #hum {
-  color: #FF4500;
-  font-weight: bold;
-  font-size: 1.5em;
-}
-
-/* --- Állapot BE/KI stílus --- */
-#gpioState {
-  color: #008000;  /* alap zöld */
-  font-weight: bold;
-}
-
-/* Ha toggle-hoz JS-sel BE/KI színt akarunk változtatni */
-.be {
-  color: #008000; /* zöld */
-}
-.ki {
-  color: #FF0000; /* piros */
-}
+/* --- Állapot színek --- */
+#gpioState.BE { color: #4ade80; text-shadow: 0 0 10px rgba(74, 222, 128, 0.5); }
+#gpioState.KI { color: #fb7185; }
