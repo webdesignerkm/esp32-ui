@@ -2,23 +2,21 @@ const ESP32_URL = location.origin;
 let isUserEditing = false;
 let editTimeout;
 
-// Ez a függvény kezeli a láthatóságot és jelzi, hogy a felhasználó éppen módosít
 function toggleUI() {
-    const modeSelect = document.getElementById("mode");
-    const mode = modeSelect.value;
+    const mode = document.getElementById("mode").value;
     const timeBox = document.getElementById("timeBox");
     const labelTemp = document.getElementById("labelTemp");
 
-    // ZÁROLÁS: Ha a felhasználó átváltja, 10 másodpercig ne engedjük a loadData-nak felülírni
+    // Szerkesztés jelzése
     isUserEditing = true;
     clearTimeout(editTimeout);
     editTimeout = setTimeout(() => { isUserEditing = false; }, 10000);
 
     if (mode === "2") {
-        timeBox.style.setProperty("display", "block", "important");
+        timeBox.style.display = "block";
         labelTemp.innerText = "Alap hőfok (időn kívül)";
     } else {
-        timeBox.style.setProperty("display", "none", "important");
+        timeBox.style.display = "none";
         labelTemp.innerText = "Kívánt hőfok (°C)";
     }
 }
@@ -38,26 +36,18 @@ function saveSettings() {
     }
 
     fetch(ESP32_URL + query)
-        .then(res => { 
-            if (res.ok) {
-                alert("Sikeresen mentve!");
-                isUserEditing = false; // Mentés után újra engedélyezzük a frissítést
-                loadData(); 
-            }
-        })
-        .catch(err => alert("Hiba a mentéskor: " + err));
+        .then(res => { if (res.ok) { alert("Mentve!"); isUserEditing = false; loadData(); } })
+        .catch(err => alert("Hiba: " + err));
 }
 
 function loadData() {
     fetch(ESP32_URL + "/state")
         .then(res => res.json())
         .then(data => {
-            // A fix kiírásokat MINDIG frissítjük
             document.getElementById("temp").innerText = data.temperature;
             document.getElementById("time").innerText = data.time;
             document.getElementById("targetDisp").innerText = data.target;
 
-            // CSAK AKKOR frissítjük a beviteli mezőket, ha a felhasználó NEM szerkeszt
             if (!isUserEditing) {
                 document.getElementById("mode").value = data.mode;
                 document.getElementById("targetInput").value = data.baseTarget;
@@ -68,20 +58,20 @@ function loadData() {
                     document.getElementById("sm").value = data.sm;
                     document.getElementById("eh").value = data.eh;
                     document.getElementById("em").value = data.em;
-                    document.getElementById("timeBox").style.setProperty("display", "block", "important");
+                    document.getElementById("timeBox").style.display = "block";
                 } else {
-                    document.getElementById("timeBox").style.setProperty("display", "none", "important");
+                    document.getElementById("timeBox").style.display = "none";
                 }
+                toggleUI();
             }
 
             const stateText = document.getElementById("gpioState");
             stateText.innerText = (data.gpio === 1) ? "FŰTÉS AKTÍV" : "KIKAPCSOLVA";
             stateText.className = "state-text " + (data.gpio === 1 ? "BE" : "KI");
-        })
-        .catch(err => console.log("Hiba: ", err));
+        });
 }
 
-// Az inputokba kattintás is aktiválja a zárolást
+// Ha bármelyik inputba belenyúlsz, ne frissüljön rá a loadData
 document.addEventListener('input', function() {
     isUserEditing = true;
     clearTimeout(editTimeout);
