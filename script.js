@@ -135,7 +135,7 @@ document.addEventListener('input', startEditingLock);
 setInterval(localClockTick, 1000);
 
 // Az adatokat az ESP32-től 5 másodpercenként kérjük le (kíméli a hálózatot)
-setInterval(loadData, 5000);
+setInterval(loadData, 1000);
 
 // Betöltéskor azonnali frissítés
 window.onload = loadData;
